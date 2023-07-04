@@ -1,0 +1,31 @@
+#!/bin/env bash
+
+# Install HAProxy
+sudo apt update
+sudo apt install -y haproxy
+
+# Configure HAProxy
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak  # Backup the original config file
+sudo cat > /etc/haproxy/haproxy.cfg <<EOF
+defaults
+    mode http
+    timeout connect 5s
+    timeout client 30s
+    timeout server 30s
+
+frontend emmyduke.tech
+    bind *:80
+    default_backend emmyduke.tech_backend
+
+backend emmyduke.tech_backend
+    balance roundrobin
+    server 221297-web-01 54.157.128.127:80 check
+    server 221297-web-02 100.25.177.218:80 check
+EOF
+
+# Enable HAProxy init script
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+# Restart HAProxy service
+sudo service haproxy restart
+
