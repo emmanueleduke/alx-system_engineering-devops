@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Configure server to listen on port 80
 
 # Stop any process currently using port 80
