@@ -1,10 +1,12 @@
 #!/bin/env bash
 
 # Install HAProxy
+# Configure HAProxy
+# Enable HAProxy init script
+
 sudo apt update
 sudo apt install -y haproxy
 
-# Configure HAProxy
 sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak  # Backup the original config file
 sudo cat > /etc/haproxy/haproxy.cfg <<EOF
 defaults
@@ -23,9 +25,7 @@ backend emmyduke.tech_backend
     server 221297-web-02 100.25.177.218:80 check
 EOF
 
-# Enable HAProxy init script
 sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
 
-# Restart HAProxy service
 sudo service haproxy restart
 
