@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Installs, configures, and starts the server
+
+apt-get update
+
+# Install Nginx
+apt-get install -y nginx
+
+# Create a custom Nginx configuration file
+cat > /etc/nginx/sites-available/redirect <<EOF
+server {
+    listen 80;
+    server_name _;
+
+    location /redirect_me {
+        return 301 http://www.example.com/new_location;
+    }
+
+    location / {
+        return 404;
+    }
+}
+EOF
+
+# Enable the new configuration by creating a symbolic link
+ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
+
+# Remove the default Nginx configuration
+rm /etc/nginx/sites-enabled/default
+
+# Restart Nginx
+service nginx restart
+
