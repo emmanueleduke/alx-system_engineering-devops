@@ -1,4 +1,4 @@
-# 0x14-mysql
+0x14 MYSQL
 
 ![mysql](https://www.simplilearn.com/ice9/free_resources_article_thumb/difference_between_sql_and_mysql.jpg)
 
@@ -217,3 +217,5 @@ mysql> CHANGE MASTER TO
 mysql> START SLAVE;
 ```
 __That's it you've configured replication on mysql, do reach out for any further assistance__
+
+
