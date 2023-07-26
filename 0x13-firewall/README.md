@@ -1,1 +1,1 @@
-Firewall configuration and port forwarding
+Firewall config and port forwarding 
